@@ -3,15 +3,16 @@
 import { useState } from "react";
 import { supabase } from "@/app/lib/supabaseClient";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const LoginForm = () => {
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log(" hier");
     const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -21,7 +22,8 @@ const LoginForm = () => {
       setError(error?.message);
     } else {
       console.log("User logged in:", data);
-      // Redirect or perform other actions after successful login
+      // Redirect to chat page on successful login
+      router.push("/chat");
     }
   };
 
@@ -74,7 +76,7 @@ const LoginForm = () => {
         </button>
         <div className="mt-4">
           <p className="text-sm">
-            Don&apos;t have an account?{" "}
+            Don't have an account?{" "}
             <Link href="/signup" className="text-blue-400 hover:underline">
               Sign up
             </Link>

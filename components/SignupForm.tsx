@@ -24,6 +24,7 @@ const SignupForm = () => {
 
     if (data) {
       console.log(data);
+      // redirect to chat page
     }
   };
 
