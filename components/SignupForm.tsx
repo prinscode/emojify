@@ -9,6 +9,7 @@ const SignupForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState(null);
 
   const handleSignup = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -18,7 +19,7 @@ const SignupForm = () => {
     });
 
     if (error) {
-      console.error(error);
+      setError(error.message);
     }
 
     if (data) {
@@ -27,7 +28,7 @@ const SignupForm = () => {
   };
 
   return (
-    <div className="bg-gray-800 text-white rounded">
+    <div className="bg-gray-800 text-white rounded w-1/3 min-w-[350px]">
       <form className="p-6 shadow-md" onSubmit={handleSignup}>
         <div className="mb-4">
           <label className="block text-sm font-medium mb-2" htmlFor="name">
@@ -84,6 +85,7 @@ const SignupForm = () => {
             className="border border-gray-300 bg-gray-500 p-2 rounded w-full"
           />
         </div>
+        {error && <div className="mb-4 text-red-500">{error}</div>}
         <button
           type="submit"
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
@@ -93,9 +95,9 @@ const SignupForm = () => {
         <div className="mt-4">
           <p className="text-sm">
             Already have an account?{" "}
-            <a href="/login" className="text-blue-400 hover:underline">
+            <Link href="/login" className="text-blue-400 hover:underline">
               Login
-            </a>
+            </Link>
           </p>
         </div>
       </form>
